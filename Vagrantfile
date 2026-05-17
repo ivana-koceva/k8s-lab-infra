@@ -32,7 +32,6 @@ Vagrant.configure("2") do |config|
       apt-get install -y -qq curl
 
       curl -sfL https://get.k3s.io | sh -s - \
-        --disable traefik \
         --write-kubeconfig-mode 644 \
         --tls-san 192.168.56.10
 
