@@ -33,7 +33,8 @@ Vagrant.configure("2") do |config|
 
       curl -sfL https://get.k3s.io | sh -s - \
         --write-kubeconfig-mode 644 \
-        --tls-san 192.168.56.10
+        --tls-san 192.168.56.10 \
+        --node-external-ip 192.168.56.10
 
       echo "Waiting for k3s node to be ready..."
       until kubectl get nodes 2>/dev/null | grep -q " Ready"; do
