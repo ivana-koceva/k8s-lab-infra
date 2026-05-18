@@ -5,6 +5,9 @@ Single-node Kubernetes lab environment provisioned from code using Vagrant and k
 ## Structure
 ```
 k8s-infra/
+├── bootstrap/
+│   ├── 01-install-argocd.sh   # Installs and configures ArgoCD
+│   └── 02-bootstrap-gitops.sh # Applies App of Apps, sets up access
 ├── Vagrantfile       # VM definition and k3s provisioner
 ├── kubeconfig.yaml   # Generated on vagrant up (gitignored)
 ├── INSTALLATION.md
@@ -34,6 +37,24 @@ kubectl get nodes
 ```
 
 To persist the kubeconfig across sessions, add the export to your `~/.bashrc` or `~/.zshrc`.
+
+## Bootstrap ArgoCD
+ 
+Run the scripts in order from the repo root:
+ 
+```bash
+chmod +x bootstrap/*.sh   # one-time, after cloning
+ 
+./bootstrap/01-install-argocd.sh
+./bootstrap/02-bootstrap-gitops.sh
+```
+ 
+`02-bootstrap-gitops.sh` assumes the gitops repo is cloned at `../k8s-lab-gitops`. Pass an explicit path if yours differs:
+```bash
+./bootstrap/02-bootstrap-gitops.sh /path/to/k8s-lab-gitops
+```
+ 
+After both scripts complete, ArgoCD is available at `http://argocd.local`.
 
 ## VM Management
 
